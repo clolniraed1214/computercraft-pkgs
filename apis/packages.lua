@@ -32,13 +32,13 @@ function updatePackage(pkgName, path)
     local files = getPackageInfo(pkgName).files
     
     for i = 1,#files,1 do
-        local fileHandle = fs.open(path .. files[i].dest, "w")
         local respHandle = http.get(getFileURI(files[i].origin))
         if respHandle == nil then
             print("Error with package installation.")
-            print("HTTP Error on file " .. files[i].name)
+            print("HTTP Error on remote file " .. files[i].origin)
             return
         end
+        local fileHandle = fs.open(path .. files[i].dest, "w")
         
         fileHandle.write(data)
         
