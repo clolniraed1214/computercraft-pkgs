@@ -32,12 +32,11 @@ function updatePackage(pkgName, path)
     local files = getPackageInfo(pkgName).files
     
     for i = 1,#files,1 do
-        local respHandle = http.get(getFileURI(files[i].origin))
         local fileHandle = fs.open(path .. files[i].dest, "w")
-        local respCode = respHandle.getResponseCode()
-        if respCode < 200 or respCode > 299 then
+        local respHandle = http.get(getFileURI(files[i].origin))
+        if respHandle == nil then
             print("Error with package installation.")
-            print("HTTP Error Code " .. respCode .. " on file " .. files[i].name)
+            print("HTTP Error on file " .. files[i].name)
             return
         end
         
