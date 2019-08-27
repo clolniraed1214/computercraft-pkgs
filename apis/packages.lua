@@ -1,7 +1,7 @@
 -- v0.1
 
 local packageOrigin = "https://raw.githubusercontent.com/clolniraed1214/computercraft-pkgs/"
-local branch = "master"
+local branch = "experimental"
 local packageList = "/packageList.lua"
 
 local function getFileURI(filePath)
@@ -29,11 +29,17 @@ function getPackageInfo(pkgName)
 end
 
 function updatePackage(pkgName, path)
-    local packageFiles = getPackageInfo(pkgName).files
+    local files = getPackageInfo(pkgName).files
     
-    for i = 1,#packageFiles,1 do
+    for i = 1,#files,1 do
+        local respHandle = http.get(getFileURI(files[i].origin))
         local fileHandle = fs.open(path .. files[i].dest, "w")
-        local data = http.get(getFileURI(files[i].origin)).readAll()
+        local respCode = respHandle.getResponseCode()
+        if respCode < 200 or respCode > 299 then
+            print("Error with package installation.")
+            print("HTTP Error Code " .. respCode .. " on file " .. files[i].name)
+            return
+        end
         
         fileHandle.write(data)
         
