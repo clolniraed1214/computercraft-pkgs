@@ -5,7 +5,7 @@ local branch = "master"
 local packageList = "/packageList.lua"
 
 local function getFileURI(filePath)
-    return packageOrigin .. master .. filePath
+    return packageOrigin .. branch .. filePath
 end
 
 function getPackageList()
