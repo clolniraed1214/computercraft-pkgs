@@ -1,3 +1,3 @@
 {
-    temp = true
+    temp = true,
 }
