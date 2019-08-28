@@ -1,12 +1,12 @@
 {
     startupManager = {
         name = "Startup Manager",
-        version = "v0.5"
-        description = "A system to manage startup apps, apis, aliases, and more..."
+        version = "v0.5",
+        description = "A system to manage startup apps, apis, aliases, and more...",
         dependancies = {},
         files = {
             dest = "startup.lua",
-            origin = "/startupManager/startupManager.lua"
+            origin = "/startupManager/startupManager.lua",
         },
         instructions = {},
     },
